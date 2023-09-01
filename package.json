@@ -1,6 +1,6 @@
 {
   "name": "create-next-three-chakra-app",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": "Ameer Hamza Khetran hamzaa803@gmail.com https://github.com/Ameer-Hamza-Khetran",
   "main": "./bin/cli.js",
   "bin": "./bin/cli.js",
