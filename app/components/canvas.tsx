@@ -24,13 +24,39 @@ export default function Canvas() {
 
             containerRef.current?.appendChild(renderer.domElement);
 
+            // -------------- Cube ------------------
+            const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+            const material = new THREE.MeshStandardMaterial({
+                emissive: "#ff00ff",
+                emissiveIntensity: 2,
+            });
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            // -------------- Lights ------------------
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+
+            // ---------- Resize function -----------
+            const handleResize = () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            };
+
+
             // -------------- infinite animation loop ------------------
             const renderScene = () => {
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
                 renderer.render(scene,camera);
                 renderer.setAnimationLoop(renderScene); // Javascript's requestAnimationFrame() can also be used here instead. 
             };
             renderScene() // Call renderScene function first time.
-
+            window.addEventListener('resize', handleResize);
             renderer.render(scene, camera);
 
             return () => {
